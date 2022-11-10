@@ -11,12 +11,15 @@ build-post:
 run: build wait
 	make -C ../docker start
 	WAIT_HOSTS=127.0.0.1:27017 ./wait
+	echo -e "==========\nMongo Logs\n=========="
+	cd ../docker && docker-compose logs mongo
 	dub run
 
 build:
 	# Uncomment for vmchecker archive to fix snapshot related clock-skew
-	#find ../ -exec touch {} \;
-	#find ~/.dub/ -exec touch {} \;
+	find ./ -exec touch {} \;
+	find ../docker -exec touch {} \;
+	find ~/.dub/ -exec touch {} \;
 	dub build
 
 wait:
@@ -26,7 +29,7 @@ wait:
 pack-checker:
 	cd .. &&\
 		zip -r milestone-1.zip docker \
-		db_conn/dub.json db_conn/Makefile.checker db_conn/source db_conn/wait && \
+		db_conn/dub.json db_conn/Makefile.checker db_conn/source/checker.d db_conn/wait && \
 		cd db_conn
 	mv ../milestone-1.zip .
 
