@@ -1,8 +1,9 @@
 build:
-	docker-compose build mongo
+	docker-compose build
 
 start: build
-	docker-compose up -d
+	#docker-compose up -d
+	docker-compose run checker /usr/bin/bash -c '/wait && source ~/dlang/ldc-1.30.0/activate && dub run'
 
 mongosh:
 	docker-compose exec mongo mongosh mongodb://root:example@mongo:27017/
