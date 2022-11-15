@@ -155,7 +155,7 @@ private void testUrlFunctions(ref DBConnection conn, ref uint points)
 void main()
 {
     uint points;
-    DBConnection conn = DBConnection("root", "example", "127.0.0.1", "27017",
+    DBConnection conn = DBConnection("root", "example", "mongo", "27017",
         "testing");
 
     testUserFunctions(conn, points);
